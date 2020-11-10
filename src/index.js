@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
+import LoadingSpinner from "./LoadingSpinner";
 
 class App extends React.Component {
   // initialize state using the constructor function.
@@ -26,14 +27,19 @@ class App extends React.Component {
     );
   }
 
-  render() {
+  // helper method
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     } else if (!this.state.errorMessage && this.state.lat) {
       return <SeasonDisplay lat={this.state.lat} />;
     } else {
-      return <div>Loading!</div>;
+      return <LoadingSpinner message="Please accept location request..." />;
     }
+  }
+
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 
